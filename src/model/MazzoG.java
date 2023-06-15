@@ -27,25 +27,14 @@ public class MazzoG extends Mazzo {
                 if (k.getValue().compareTo(v) == 0)
                     contatore++;
 
-    public void inserisciCarta(Card card){
-        if(super.getCards().isEmpty()) {
-            super.getCards().add(card);
-            return;
-        }
-
-        for(Card c : super.getCards()){
-            if(card.getSeed().compareTo(c.getSeed()) < 0){
-                super.getCards().add(c.getSeed().ordinal(), card);
-                return;
-            }
-            else{
-                if()
             }
             if (contatore==4) {
                 valore=v;}
         }
-    return valore;
+        return valore;
     }
+
+
     public Scala ifscala(){
         Scala scala=new Scala();
         Scala scalaprima = new Scala();
@@ -72,6 +61,23 @@ public class MazzoG extends Mazzo {
 
         return null;
     }
+
+    public void inserisciCarta(Card card){
+        if(super.getCards().isEmpty()) {
+            super.getCards().add(card);
+            return;
+        }
+
+        for(Card c : super.getCards()){
+            if(card.getSeed().compareTo(c.getSeed()) < 0){
+                super.getCards().add(c.getSeed().ordinal(), card);
+                return;
+            }
+            else{
+                if()
+            }
+
+        }
 
 
 }
