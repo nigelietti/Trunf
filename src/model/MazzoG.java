@@ -17,7 +17,9 @@ public class MazzoG extends Mazzo {
             }
         }
 
-    return false;}
+    return false;
+    }
+    
     public Value ifpoker(){
         Value valore = null;
         int contatore;
