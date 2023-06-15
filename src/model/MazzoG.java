@@ -62,22 +62,27 @@ public class MazzoG extends Mazzo {
         return null;
     }
 
-    public void inserisciCarta(Card card){
-        if(super.getCards().isEmpty()) {
+    public void inserisciCarta(Card card) {
+        if (super.getCards().isEmpty()) {
             super.getCards().add(card);
             return;
         }
 
-        for(Card c : super.getCards()){
-            if(card.getSeed().compareTo(c.getSeed()) < 0){
+        for (Card c : super.getCards()) {
+            if (card.getSeed().compareTo(c.getSeed()) < 0) {
                 super.getCards().add(c.getSeed().ordinal(), card);
                 return;
-            }
-            else{
-                if()
+            } else {
+                if (card.getSeed().compareTo(c.getSeed()) == 0) {
+                    if (card.getValue().compareTo(c.getValue()) < 0) {
+                        super.getCards().add(c.getSeed().ordinal(), card);
+                        return;
+                    }
+                }
             }
 
         }
 
+    }
 
 }
