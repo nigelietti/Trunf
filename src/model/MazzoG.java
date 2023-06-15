@@ -28,6 +28,10 @@ public class MazzoG extends Mazzo {
         for(Card c : super.getCards()){
             if(card.getSeed().compareTo(c.getSeed()) < 0){
                 super.getCards().add(c.getSeed().ordinal(), card);
+                return;
+            }
+            else{
+                if()
             }
         }
     }
