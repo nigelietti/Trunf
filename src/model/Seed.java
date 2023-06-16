@@ -1,5 +1,5 @@
 package model;
 
 public enum Seed {
-    PICCHE,CUORI,QUADRI,FIORI;
+    CUORI,QUADRI,FIORI,PICCHE;
 }

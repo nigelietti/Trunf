@@ -1,6 +1,9 @@
 package model;
 
+import java.util.ArrayList;
+
 public class MazzoG extends Mazzo {
+
     public boolean ifStuck(Seed trunf) {//metodo
         boolean trovato = false;
         for (Card k : super.getCards()) { //itera su tutte le carte(c) col metodo che eredita da mazzo
@@ -28,8 +31,9 @@ public class MazzoG extends Mazzo {
             if (contatore==4) {
                 valore=v;}
         }
-    return valore;
+        return valore;
     }
+
 
     public Scala ifscala(){
         Scala scala=new Scala();
@@ -58,5 +62,27 @@ public class MazzoG extends Mazzo {
         return null;
     }
 
+    public void inserisciCarta(Card card) {
+        if (super.getCards().isEmpty()) {
+            super.getCards().add(card);
+            return;
+        }
+
+        for (Card c : super.getCards()) {
+            if (card.getSeed().compareTo(c.getSeed()) < 0) {
+                super.getCards().add(c.getSeed().ordinal(), card);
+                return;
+            } else {
+                if (card.getSeed().compareTo(c.getSeed()) == 0) {
+                    if (card.getValue().compareTo(c.getValue()) < 0) {
+                        super.getCards().add(c.getSeed().ordinal(), card);
+                        return;
+                    }
+                }
+            }
+
+        }
+
+    }
 
 }
