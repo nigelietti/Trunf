@@ -17,7 +17,7 @@ public class Table {
 
     public void setTrunf(Seed trunf) {
         this.trunf = trunf;
-    }
+    } //parametro che gli gli dai
 
     public Card getUltimaCarta() {
         return ultimaCarta;
@@ -77,8 +77,8 @@ public class Table {
             pozzetto.addCard(mazzo.getCards().remove(0));
         }
 
-        setTrunf(mazzo.getCards().remove(0).getSeed());
-        setUltimaCarta(mazzo.getCards().remove(4));
+        setTrunf(mazzo.getCards().get(0).getSeed());
+        setUltimaCarta(mazzo.getCards().get(5));
 
     }
 
