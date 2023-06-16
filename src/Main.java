@@ -12,11 +12,11 @@ public class Main {
         Table table = new Table("Riccio", "Nige");
 
         System.out.println("Mazzo G1:");
-        table.getG1().getMazzoGiocatore().mostraMazzo();
+        table.mostraMazzo(table.getG1().getMazzoGiocatore());
         System.out.println("Mazzo G2:");
-        table.getG2().getMazzoGiocatore().mostraMazzo();
+        table.mostraMazzo(table.getG1().getMazzoGiocatore());
         System.out.println("Pozzetto:");
-        table.getPozzetto().mostraMazzo();
+        table.mostraMazzo(table.getPozzetto());
         System.out.println("Trunf:" + table.getTrunf());
         System.out.print("Ultima carta mazzo:");
         table.getUltimaCarta().mostraCarta();
