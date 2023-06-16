@@ -22,15 +22,6 @@ public class Main {
         table.getUltimaCarta().mostraCarta();
 
 
-      /*  ArrayList<Card> cards = new ArrayList<Card>();
-        for(Seed s: Seed.values()){
-            for(Value v: Value.values()){
-                cards.add(new Card(v,s));
-            }
-        }
 
-        Gson gson = new Gson();
-        System.out.printf(gson.toJson(cards));
-    }*/
     }
 }
