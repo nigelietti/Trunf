@@ -1,13 +1,24 @@
 package model;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
 public class Table {
     private Seed trunf;
     private Card ultimaCarta;
     private CartaGiocata cartaGiocata1, cartaGiocata2;
     private Giocatore g1, g2;
-    private Mazzo mazzo;
+    private ArrayList<Card> mazzo;
 
-    private MazzoG pozzetto;
+    private ArrayList<Card> pozzetto;
 
 
 
@@ -17,7 +28,7 @@ public class Table {
 
     public void setTrunf(Seed trunf) {
         this.trunf = trunf;
-    } //parametro che gli gli dai
+    }
 
     public Card getUltimaCarta() {
         return ultimaCarta;
@@ -51,35 +62,59 @@ public class Table {
         return g2;
     }
 
-    public MazzoG getPozzetto() {
+    public ArrayList<Card> getPozzetto() {
         return pozzetto;
     }
 
     public Table(String nome1, String nome2){
         g1 = new Giocatore(nome1);
         g2 = new Giocatore(nome2);
-        pozzetto = new MazzoG();
+        pozzetto = new ArrayList<Card>();
 
-        mazzo = new Mazzo();
-        mazzo.instanziaMazzo();
-        mazzo.mischia();
-        mazzo.mostraMazzo();
+        mazzo = new ArrayList<Card>();
+        instanziaMazzo();
+        mischia();
+        mostraMazzo(mazzo);
 
-
-        for(int i = 0; i < 10; i++){
-            g1.getMazzoGiocatore().addCard(mazzo.getCards().remove(0));
-        }
-        for(int i = 0; i < 10; i++){
-            g2.getMazzoGiocatore().addCard(mazzo.getCards().remove(0));
-        }
 
         for(int i = 0; i < 10; i++){
-            pozzetto.addCard(mazzo.getCards().remove(0));
+            g1.getMazzoGiocatore().add(mazzo.remove(0));
+        }
+        for(int i = 0; i < 10; i++){
+            g2.getMazzoGiocatore().add(mazzo.remove(0));
         }
 
-        setTrunf(mazzo.getCards().get(0).getSeed());
-        setUltimaCarta(mazzo.getCards().get(5));
+        for(int i = 0; i < 10; i++){
+            pozzetto.add(mazzo.remove(0));
+        }
 
+        setTrunf(mazzo.get(0).getSeed());
+        setUltimaCarta(mazzo.get(5));
+
+    }
+
+    public void instanziaMazzo(){
+        InputStream is = Card.class.getResourceAsStream("/resource/Carte.txt");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        Scanner myReader = new Scanner(reader);
+        String data = myReader.nextLine();
+
+        Gson gson = new Gson();
+        Type userListType = new TypeToken<ArrayList<Card>>(){}.getType();
+        mazzo = gson.fromJson(data, userListType);
+
+        myReader.close();
+    }
+
+    public void mischia(){
+        Collections.shuffle(mazzo);
+    }
+
+    public void mostraMazzo(ArrayList<Card> m){
+        for(Card c: m){
+            c.mostraCarta();
+        }
+        System.out.print("\n");
     }
 
 
