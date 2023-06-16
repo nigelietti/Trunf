@@ -14,4 +14,13 @@ public class Card {
     public Seed getSeed() {
         return seed;
     }
+
+    public Card(Value value, Seed seed) {
+        this.value = value;
+        this.seed = seed;
+    }
+
+    public void mostraCarta(){
+        System.out.print(getValue() + "_" + getSeed().toString()+ " ");
+    }
 }
