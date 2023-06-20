@@ -78,10 +78,10 @@ public class Table {
 
 
         for(int i = 0; i < 10; i++){
-            g1.getMazzoGiocatore().add(mazzo.remove(0));
+            g1.daiCarta(mazzo.remove(0));
         }
         for(int i = 0; i < 10; i++){
-            g2.getMazzoGiocatore().add(mazzo.remove(0));
+            g2.daiCarta(mazzo.remove(0));
         }
 
         for(int i = 0; i < 10; i++){
@@ -90,6 +90,12 @@ public class Table {
 
         setTrunf(mazzo.get(0).getSeed());
         setUltimaCarta(mazzo.get(5));
+
+        System.out.println("Scale G1");
+        g1.scale();
+
+        System.out.println("Scale G2");
+        g2.scale();
 
     }
 

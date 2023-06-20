@@ -3,10 +3,13 @@ package model;
 public class Scala {
     private int num;
     private Value value;
+
     private Seed seed;
-    public Scala(){
-        num=0;
-        value =null;
+
+    public Scala(int num, Value value, Seed seed){
+        this.num = num;
+        this.value = value;
+        this.seed = seed;
     }
     public int getNum(){
         return num;
@@ -16,11 +19,9 @@ public class Scala {
         return value;
     }
 
-    public void setNum(int num) {
-        this.num = num;
+    public Seed getSeed(){
+        return seed;
     }
 
-    public void setValue(Value value) {
-        this.value = value;
-    }
+
 }
