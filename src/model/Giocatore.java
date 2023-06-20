@@ -7,7 +7,12 @@ public class Giocatore {
     private ArrayList<Card> mazzoGiocatore;
     private ArrayList<Card> cartePrese;
 
+    private int punteggio;
+    public void resetpunteggio(){
+        punteggio=0;
+    }
     public Giocatore(String nome){
+        resetpunteggio();
         mazzoGiocatore = new ArrayList<Card>();
         cartePrese = new ArrayList<Card>();
         this.nome = nome;
@@ -35,20 +40,44 @@ public class Giocatore {
         }
 
         return false;}
-    public Value ifpoker(){
-        Value valore = null;
+    public ArrayList<Value> ifpoker(){
+        ArrayList<Value> poker = new ArrayList<Value>();
         int contatore;
         for (Value v: Value.values()){
             contatore = 0;
-            for (Card k : getMazzoGiocatore()) {
-                if (k.getValue().compareTo(v) == 0)
-                    contatore++;
+            if (v.compareTo(Value.DIECI)>=0) {
+                for (Card k : getMazzoGiocatore()) {
+                    if (k.getValue().compareTo(v) == 0)
+                        contatore++;
 
+                }
             }
             if (contatore==4) {
-                valore=v;}
+                poker.add(v);}
+            }
+        return poker;
+    }
+
+    public Value pokermax(){
+        ArrayList<Value> poker=ifpoker();
+        if (poker.isEmpty()){
+            return null;
         }
-        return valore;
+        Value pokermax=null;
+
+        int i;
+        for (i=0; i< poker.size(); i++){
+            if (poker.get(i).equals('J')){
+                pokermax= Value.J;
+                break;
+            }
+            else{
+                pokermax=poker.get(i);
+            }
+
+
+        }
+        return pokermax;
     }
 
 
@@ -62,15 +91,19 @@ public class Giocatore {
 
         for(int i = 8; i >= 0; i--){
             if(mazzoGiocatore.get(i).getSeed().equals(seme) && mazzoGiocatore.get(i).getValue().compareTo(valorePrecedente) == -1){
-
+                if(i==0 && carteInFila>1 && carteInFila<5){
+                    carteInFila++;
+                    scale.add(new Scala(carteInFila,valorePiuAlto,seme));
+                }
                 if(carteInFila < 5){
                     carteInFila++;
                     valorePrecedente = mazzoGiocatore.get(i).getValue();
                 }
-                else{
+                else if(i!=0){
                     scale.add(new Scala(carteInFila, valorePiuAlto, seme));
                     carteInFila = 1;
                     valorePiuAlto = mazzoGiocatore.get(i).getValue();
+                    seme= mazzoGiocatore.get(i).getSeed();
                     valorePrecedente = valorePiuAlto;
                 }
 
@@ -78,11 +111,13 @@ public class Giocatore {
             else{
                 if(carteInFila > 2){
                     scale.add(new Scala(carteInFila, valorePiuAlto, seme));
-                    carteInFila = 1;
-                    valorePiuAlto = mazzoGiocatore.get(i).getValue();
-                    valorePrecedente = valorePiuAlto;
                 }
+                carteInFila = 1;
+                valorePiuAlto = mazzoGiocatore.get(i).getValue();
+                valorePrecedente = valorePiuAlto;
+                seme= mazzoGiocatore.get(i).getSeed();
             }
+
 
         }
 
@@ -117,6 +152,7 @@ public class Giocatore {
 
         mazzoGiocatore.add(card);
         return;
+
 
     }
 
