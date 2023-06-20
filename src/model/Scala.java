@@ -3,7 +3,7 @@ package model;
 public class Scala {
     private int num;
     private Value value;
-
+    private Seed seed;
     public Scala(){
         num=0;
         value =null;

@@ -35,6 +35,24 @@ public class Giocatore {
         }
 
         return false;}
+
+    public ArrayList<Value> pokers() {
+        ArrayList<Value> pokers=new ArrayList<Value>();
+        int contatore=0;
+        for (Value v: Value.values()){
+            contatore = 0;
+            for (Card k : getMazzoGiocatore()) {
+                if (k.getValue().compareTo(v) == 0)
+                    contatore++;
+
+            }
+            if (contatore==4) {
+                pokers.add(v);}
+        }
+
+        return pokers;
+    }
+
     public Value ifpoker(){
         Value valore = null;
         int contatore;
@@ -50,7 +68,6 @@ public class Giocatore {
         }
         return valore;
     }
-
 
     public Scala ifscala(){
         Scala scala=new Scala();
@@ -102,4 +119,5 @@ public class Giocatore {
 
     }
 
+    
 }
