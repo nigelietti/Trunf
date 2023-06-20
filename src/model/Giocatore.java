@@ -128,6 +128,32 @@ public class Giocatore {
         return scale;
     }
 
+    public Scala scalamax(Seed trunf){
+
+        ArrayList<Scala> scale = scale();
+        Scala scalaMax = scale.get(0);
+        int i;
+
+        for(i = 1; i < scale.size(); i++){
+            if(scalaMax.getNum() < scale.get(i).getNum()){
+                scalaMax = scale.get(i);
+            }
+            else if(scalaMax.getNum() == scale.get(i).getNum()){
+                if(scalaMax.getValue().compareTo(scale.get(i).getValue()) < 0){
+                    scalaMax = scale.get(i);
+                }
+                else if(scalaMax.getValue().compareTo(scale.get(i).getValue()) == 0){
+
+                    if(scale.get(i).getSeed() == trunf){
+                        scalaMax = scale.get(i);
+                    }
+                }
+            }
+        }
+
+        return scalaMax;
+    }
+
 
     public void daiCarta(Card card) {
         if (mazzoGiocatore.isEmpty()) {

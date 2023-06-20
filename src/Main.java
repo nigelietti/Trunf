@@ -36,6 +36,8 @@ public class Main {
         g3.setMazzoGiocatore(carte4);
         g3.scale();
 
+        g3.scalamax(table.getTrunf());
+        g3.pokermax();
 
 
 
