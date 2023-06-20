@@ -52,53 +52,71 @@ public class Giocatore {
     }
 
 
-    public Scala ifscala(){
-        Scala scala=new Scala();
-        Scala scalaprima = new Scala();
-        Value valore= null;
-        for (int i=0; i<10; i++)  {
-            valore=getMazzoGiocatore().get(i).getValue();
-            for (int j=0; j<4; j++){
-                if (getMazzoGiocatore().get(i+j+1).getSeed().compareTo(getMazzoGiocatore().get(i+j).getSeed())==0 && getMazzoGiocatore().get(i+j+1).getValue().compareTo(mazzoGiocatore.get(i+j).getValue())==0){
-                    scala.setNum(j+2);
-                    scala.setValue(getMazzoGiocatore().get(i).getValue());
+    public ArrayList<Scala> scale(){
+        Value valorePiuAlto = mazzoGiocatore.get(9).getValue();
+        Value valorePrecedente = mazzoGiocatore.get(9).getValue();
+        Seed seme = mazzoGiocatore.get(9).getSeed();;
+        int carteInFila = 1;
+
+        ArrayList<Scala> scale = new ArrayList<Scala>();
+
+        for(int i = 8; i >= 0; i--){
+            if(mazzoGiocatore.get(i).getSeed().equals(seme) && mazzoGiocatore.get(i).getValue().compareTo(valorePrecedente) == -1){
+
+                if(carteInFila < 5){
+                    carteInFila++;
+                    valorePrecedente = mazzoGiocatore.get(i).getValue();
                 }
                 else{
-                    break;
+                    scale.add(new Scala(carteInFila, valorePiuAlto, seme));
+                    carteInFila = 1;
+                    valorePiuAlto = mazzoGiocatore.get(i).getValue();
+                    valorePrecedente = valorePiuAlto;
                 }
-                if (scala.getNum()<3){
-                    scala.setNum(0);
-                    scala.setValue(null);
-                    break;
+
+            }
+            else{
+                if(carteInFila > 2){
+                    scale.add(new Scala(carteInFila, valorePiuAlto, seme));
+                    carteInFila = 1;
+                    valorePiuAlto = mazzoGiocatore.get(i).getValue();
+                    valorePrecedente = valorePiuAlto;
                 }
             }
-            scalaprima.setValue(scala.getValue());
-            scalaprima.setNum(scala.getNum());
+
         }
 
-        return null;
+        for(Scala s: scale){
+            System.out.println("Scala di " + s.getNum() + " carte di " + s.getSeed() + " con carta più alta " + s.getValue());
+        }
+
+        return scale;
     }
 
-    public void inserisciCarta(Card card) {
-        if (getMazzoGiocatore().isEmpty()) {
-            getMazzoGiocatore().add(card);
+
+    public void daiCarta(Card card) {
+        if (mazzoGiocatore.isEmpty()) {
+            mazzoGiocatore.add(card);
             return;
         }
 
-        for (Card c : getMazzoGiocatore()) {
+        for (Card c : mazzoGiocatore) {
             if (card.getSeed().compareTo(c.getSeed()) < 0) {
-                getMazzoGiocatore().add(c.getSeed().ordinal(), card);
+                mazzoGiocatore.add(mazzoGiocatore.indexOf(c), card);
                 return;
             } else {
                 if (card.getSeed().compareTo(c.getSeed()) == 0) {
                     if (card.getValue().compareTo(c.getValue()) < 0) {
-                        getMazzoGiocatore().add(c.getSeed().ordinal(), card);
+                        mazzoGiocatore.add(mazzoGiocatore.indexOf(c), card);
                         return;
                     }
                 }
             }
 
         }
+
+        mazzoGiocatore.add(card);
+        return;
 
     }
 
