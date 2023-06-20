@@ -123,10 +123,7 @@ public class Table {
         System.out.print("\n");
     }
 
-    public int vincitorecusa(){
-        //CONFRONTO POKER
 
-    }
 
 
 
