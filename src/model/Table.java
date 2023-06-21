@@ -196,32 +196,76 @@ public class Table {
         if(cartaGiocata1.getSeed() != trunf && cartaGiocata2.getSeed() != trunf){
             if(cartaGiocata1.getSeed() == cartaGiocata2.getSeed()){
                 if(cartaGiocata1.getValue().compareTo(cartaGiocata2.getValue()) > 0){
-                    giocatoreCorrente.cartaPresa(cartaGiocata1);
-                    cartaGiocata1 = null;
-                    giocatoreCorrente.cartaPresa(cartaGiocata2);
-                    cartaGiocata2 = null;
+                    giocatoreCorrenteVince();
                 }
                 else{
-                    if(giocatoreCorrente == g1) {
-                        g2.cartaPresa(cartaGiocata1);
-                        cartaGiocata1 = null;
-                        g2.cartaPresa(cartaGiocata2);
-                        cartaGiocata2 = null;
-                        giocatoreCorrente = g2;
-                    }
-                    else{
-                        g1.cartaPresa(cartaGiocata1);
-                        cartaGiocata1 = null;
-                        g1.cartaPresa(cartaGiocata2);
-                        cartaGiocata2 = null;
-                        giocatoreCorrente = g1;
-                    }
+                   secondoGiocatoreVince();
                 }
             }
+            else{
+                giocatoreCorrenteVince();
+            }
+        }
+        else if(cartaGiocata1.getSeed() == trunf && cartaGiocata2.getSeed() == trunf){
+            if(cartaGiocata1.getValue().equals(Value.NOVE)){
+                if(cartaGiocata2.getValue().equals(Value.J)){
+                    secondoGiocatoreVince();
+                }
+                else{
+                    giocatoreCorrenteVince();
+                }
 
+                return;
+            }
+
+            if(cartaGiocata2.getValue().equals(Value.NOVE)){
+                if(cartaGiocata1.getValue().equals(Value.J)){
+                    giocatoreCorrenteVince();
+                }
+                else{
+                    secondoGiocatoreVince();
+                }
+
+                return;
+            }
+
+            if(cartaGiocata1.getValue().compareTo(cartaGiocata2.getValue()) > 0)
+                giocatoreCorrenteVince();
+            else
+                secondoGiocatoreVince();
+
+        }
+        else if(cartaGiocata1.getSeed() == trunf){
+            giocatoreCorrenteVince();
+        }
+        else{
+            secondoGiocatoreVince();
         }
     }
 
+    private void giocatoreCorrenteVince(){
+        giocatoreCorrente.cartaPresa(cartaGiocata1);
+        cartaGiocata1 = null;
+        giocatoreCorrente.cartaPresa(cartaGiocata2);
+        cartaGiocata2 = null;
+    }
+
+    private void secondoGiocatoreVince(){
+        if(giocatoreCorrente == g1) {
+            g2.cartaPresa(cartaGiocata1);
+            cartaGiocata1 = null;
+            g2.cartaPresa(cartaGiocata2);
+            cartaGiocata2 = null;
+            giocatoreCorrente = g2;
+        }
+        else{
+            g1.cartaPresa(cartaGiocata1);
+            cartaGiocata1 = null;
+            g1.cartaPresa(cartaGiocata2);
+            cartaGiocata2 = null;
+            giocatoreCorrente = g1;
+        }
+    }
 
 
 

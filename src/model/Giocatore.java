@@ -8,11 +8,17 @@ public class Giocatore {
     private ArrayList<Card> cartePrese;
 
     private int punteggio;
-    public void resetpunteggio(){
+
+    public void cartaPresa(Card carta){
+        cartePrese.add(carta);
+    }
+    public void reset(){
         punteggio=0;
+        mazzoGiocatore.clear();
+        cartePrese.clear();
     }
     public Giocatore(String nome){
-        resetpunteggio();
+        punteggio = 0;
         mazzoGiocatore = new ArrayList<Card>();
         cartePrese = new ArrayList<Card>();
         this.nome = nome;
