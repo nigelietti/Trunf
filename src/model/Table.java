@@ -73,7 +73,7 @@ public class Table {
 
         mazzo = new ArrayList<Card>();
         instanziaMazzo();
-        mischia();
+        mischiaMazzo();
         mostraMazzo(mazzo);
 
 
@@ -112,7 +112,7 @@ public class Table {
         myReader.close();
     }
 
-    public void mischia(){
+    public void mischiaMazzo(){
         Collections.shuffle(mazzo);
     }
 
@@ -123,6 +123,31 @@ public class Table {
         System.out.print("\n");
     }
 
+
+    public void puntiCusa(){
+        g1.ifStuck(trunf);
+        g2.ifStuck(trunf);
+
+        if(g1.pokermax() != null && g2.pokermax() != null){
+
+        }
+        else{
+            if(g1.pokermax() == null)
+                g2.puntiPoker();
+            else
+                g1.pokermax();
+        }
+
+        if(g1.scalamax(trunf) != null && g2.scalamax(trunf) != null){
+
+        }
+        else{
+            if(g1.scalamax(trunf) == null)
+                g2.puntiScale();
+            else
+                g1.puntiScale();
+        }
+    }
 
 
 

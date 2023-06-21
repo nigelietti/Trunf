@@ -26,20 +26,19 @@ public class Giocatore {
         this.mazzoGiocatore = mazzoGiocatore;
     }
 
-    public boolean ifStuck(Seed trunf) {//metodo
+    public void ifStuck(Seed trunf) {//metodo
         boolean trovato = false;
         for (Card k : getMazzoGiocatore()) { //itera su tutte le carte(c) col metodo che eredita da mazzo
 
             if (k.getValue().equals('K') && k.getSeed().equals(trunf)) {
                 for (Card q : getMazzoGiocatore()) {
                     if (q.getValue().equals('Q') && q.getSeed().equals(trunf)) {
-                        return true;
+                        punteggio = punteggio + 20;
                     }
                 }
             }
         }
-
-        return false;}
+    }
     public ArrayList<Value> ifpoker(){
         ArrayList<Value> poker = new ArrayList<Value>();
         int contatore;
@@ -131,6 +130,10 @@ public class Giocatore {
     public Scala scalamax(Seed trunf){
 
         ArrayList<Scala> scale = scale();
+        if (scale.isEmpty()){
+            return null;
+        }
+
         Scala scalaMax = scale.get(0);
         int i;
 
@@ -177,9 +180,30 @@ public class Giocatore {
         }
 
         mazzoGiocatore.add(card);
-        return;
+    }
 
+    public void puntiPoker(){
+        for(Value v: ifpoker()){
+            if(v.equals("J")){
+                punteggio = punteggio + 200;
+            }
+            else{
+                punteggio = punteggio + 100;
+            }
+        }
+    }
 
+    public void puntiScale(){
+        for(Scala s: scale()){
+            switch(s.getNum()){
+                case 3: punteggio = punteggio + 20;
+                    break;
+                case 4: punteggio = punteggio + 40;
+                    break;
+                case 5: punteggio = punteggio + 100;
+                    break;
+            }
+        }
     }
 
 }
