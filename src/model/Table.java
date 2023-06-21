@@ -129,7 +129,20 @@ public class Table {
         g2.ifStuck(trunf);
 
         if(g1.pokermax() != null && g2.pokermax() != null){
-
+            if(!g1.pokermax().equals('J') && !g2.pokermax().equals('J')){
+                if (g1.pokermax().compareTo(g2.pokermax())>0){
+                    g1.puntiPoker();
+                }
+                else{
+                    g2.puntiPoker();
+                }
+            }
+            else if (g1.pokermax().equals('J')) {
+                g1.puntiPoker();
+            }
+            else {
+                g2.puntiPoker();
+            }
         }
         else{
             if(g1.pokermax() == null)
