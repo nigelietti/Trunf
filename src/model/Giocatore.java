@@ -8,10 +8,12 @@ public class Giocatore {
     private ArrayList<Card> cartePrese;
 
     private int punteggio;
-    public void resetpunteggio(){
-        punteggio=0;
+
+    public void resetpunteggio() {
+        punteggio = 0;
     }
-    public Giocatore(String nome){
+
+    public Giocatore(String nome) {
         resetpunteggio();
         mazzoGiocatore = new ArrayList<Card>();
         cartePrese = new ArrayList<Card>();
@@ -39,39 +41,40 @@ public class Giocatore {
             }
         }
     }
-    public ArrayList<Value> ifpoker(){
+
+    public ArrayList<Value> ifpoker() {
         ArrayList<Value> poker = new ArrayList<Value>();
         int contatore;
-        for (Value v: Value.values()){
+        for (Value v : Value.values()) {
             contatore = 0;
-            if (v.compareTo(Value.DIECI)>=0) {
+            if (v.compareTo(Value.DIECI) >= 0) {
                 for (Card k : getMazzoGiocatore()) {
                     if (k.getValue().compareTo(v) == 0)
                         contatore++;
 
                 }
             }
-            if (contatore==4) {
-                poker.add(v);}
+            if (contatore == 4) {
+                poker.add(v);
             }
+        }
         return poker;
     }
 
-    public Value pokermax(){
-        ArrayList<Value> poker=ifpoker();
-        if (poker.isEmpty()){
+    public Value pokermax() {
+        ArrayList<Value> poker = ifpoker();
+        if (poker.isEmpty()) {
             return null;
         }
-        Value pokermax=null;
+        Value pokermax = null;
 
         int i;
-        for (i=0; i< poker.size(); i++){
-            if (poker.get(i).equals('J')){
-                pokermax= Value.J;
+        for (i = 0; i < poker.size(); i++) {
+            if (poker.get(i).equals('J')) {
+                pokermax = Value.J;
                 break;
-            }
-            else{
-                pokermax=poker.get(i);
+            } else {
+                pokermax = poker.get(i);
             }
 
 
@@ -80,74 +83,71 @@ public class Giocatore {
     }
 
 
-    public ArrayList<Scala> scale(){
+    public ArrayList<Scala> scale() {
         Value valorePiuAlto = mazzoGiocatore.get(9).getValue();
         Value valorePrecedente = mazzoGiocatore.get(9).getValue();
-        Seed seme = mazzoGiocatore.get(9).getSeed();;
+        Seed seme = mazzoGiocatore.get(9).getSeed();
+        ;
         int carteInFila = 1;
 
         ArrayList<Scala> scale = new ArrayList<Scala>();
 
-        for(int i = 8; i >= 0; i--){
-            if(mazzoGiocatore.get(i).getSeed().equals(seme) && mazzoGiocatore.get(i).getValue().compareTo(valorePrecedente) == -1){
-                if(i==0 && carteInFila>1 && carteInFila<5){
+        for (int i = 8; i >= 0; i--) {
+            if (mazzoGiocatore.get(i).getSeed().equals(seme) && mazzoGiocatore.get(i).getValue().compareTo(valorePrecedente) == -1) {
+                if (i == 0 && carteInFila > 1 && carteInFila < 5) {
                     carteInFila++;
-                    scale.add(new Scala(carteInFila,valorePiuAlto,seme));
+                    scale.add(new Scala(carteInFila, valorePiuAlto, seme));
                 }
-                if(carteInFila < 5){
+                if (carteInFila < 5) {
                     carteInFila++;
                     valorePrecedente = mazzoGiocatore.get(i).getValue();
-                }
-                else if(i!=0){
+                } else if (i != 0) {
                     scale.add(new Scala(carteInFila, valorePiuAlto, seme));
                     carteInFila = 1;
                     valorePiuAlto = mazzoGiocatore.get(i).getValue();
-                    seme= mazzoGiocatore.get(i).getSeed();
+                    seme = mazzoGiocatore.get(i).getSeed();
                     valorePrecedente = valorePiuAlto;
                 }
 
-            }
-            else{
-                if(carteInFila > 2){
+            } else {
+                if (carteInFila > 2) {
                     scale.add(new Scala(carteInFila, valorePiuAlto, seme));
                 }
                 carteInFila = 1;
                 valorePiuAlto = mazzoGiocatore.get(i).getValue();
                 valorePrecedente = valorePiuAlto;
-                seme= mazzoGiocatore.get(i).getSeed();
+                seme = mazzoGiocatore.get(i).getSeed();
             }
 
 
         }
 
-        for(Scala s: scale){
+        for (Scala s : scale) {
             System.out.println("Scala di " + s.getNum() + " carte di " + s.getSeed() + " con carta più alta " + s.getValue());
         }
 
         return scale;
     }
 
-    public Scala scalamax(Seed trunf){
+    public Scala scalamax(Seed trunf) {
 
         ArrayList<Scala> scale = scale();
-        if (scale.isEmpty()){
+        if (scale.isEmpty()) {
             return null;
         }
 
         Scala scalaMax = scale.get(0);
         int i;
 
-        for(i = 1; i < scale.size(); i++){
-            if(scalaMax.getNum() < scale.get(i).getNum()){
+        for (i = 1; i < scale.size(); i++) {
+            if (scalaMax.getNum() < scale.get(i).getNum()) {
                 scalaMax = scale.get(i);
-            }
-            else if(scalaMax.getNum() == scale.get(i).getNum()){
-                if(scalaMax.getValue().compareTo(scale.get(i).getValue()) < 0){
+            } else if (scalaMax.getNum() == scale.get(i).getNum()) {
+                if (scalaMax.getValue().compareTo(scale.get(i).getValue()) < 0) {
                     scalaMax = scale.get(i);
-                }
-                else if(scalaMax.getValue().compareTo(scale.get(i).getValue()) == 0){
+                } else if (scalaMax.getValue().compareTo(scale.get(i).getValue()) == 0) {
 
-                    if(scale.get(i).getSeed() == trunf){
+                    if (scale.get(i).getSeed() == trunf) {
                         scalaMax = scale.get(i);
                     }
                 }
@@ -182,28 +182,66 @@ public class Giocatore {
         mazzoGiocatore.add(card);
     }
 
-    public void puntiPoker(){
-        for(Value v: ifpoker()){
-            if(v.equals("J")){
+    public void puntiPoker() {
+        for (Value v : ifpoker()) {
+            if (v.equals("J")) {
                 punteggio = punteggio + 200;
-            }
-            else{
+            } else {
                 punteggio = punteggio + 100;
             }
         }
     }
 
-    public void puntiScale(){
-        for(Scala s: scale()){
-            switch(s.getNum()){
-                case 3: punteggio = punteggio + 20;
+    public void puntiScale() {
+        for (Scala s : scale()) {
+            switch (s.getNum()) {
+                case 3:
+                    punteggio = punteggio + 20;
                     break;
-                case 4: punteggio = punteggio + 40;
+                case 4:
+                    punteggio = punteggio + 40;
                     break;
-                case 5: punteggio = punteggio + 100;
+                case 5:
+                    punteggio = punteggio + 100;
                     break;
             }
         }
     }
 
+    public Card giocacarta(int index) throws IndexOutOfBoundsException {
+        Card carta = mazzoGiocatore.remove(index);
+        return carta;
+    }
+
+    public void punteggiofinale(Giocatore giocatore, Seed trunf) {
+        if (this == giocatore) { //this ritorna l'oggetto chiamante della funzione
+            punteggio = punteggio + 5;
+        }
+        for (Card c : cartePrese) {
+            switch (c.getValue()) {
+                case A:
+                    punteggio = punteggio + 11;
+                    break;
+                case K:
+                    punteggio = punteggio + 4;
+                    break;
+                case Q:
+                    punteggio = punteggio + 3;
+                    break;
+                case DIECI:
+                    punteggio = punteggio + 10;
+                    break;
+                case J:
+                    if (c.getSeed().equals(trunf))
+                        punteggio = punteggio + 20;
+                    else
+                        punteggio = punteggio + 2;
+                    break;
+                case NOVE:
+                    if (c.getSeed().equals(trunf))
+                        punteggio = punteggio + 14;
+                    break;
+            }
+        }
+    }
 }

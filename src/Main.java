@@ -28,11 +28,11 @@ public class Main {
         carte4.add(new Card(Value.NOVE,Seed.PICCHE));
         carte4.add(new Card(Value.DIECI,Seed.PICCHE));
         carte4.add(new Card(Value.J,Seed.PICCHE));
-        carte4.add(new Card(Value.SEI,Seed.FIORI));
+        carte4.add(new Card(Value.DIECI,Seed.FIORI));
         carte4.add(new Card(Value.SETTE,Seed.FIORI));
         carte4.add(new Card(Value.OTTO,Seed.FIORI));
-        carte4.add(new Card(Value.SETTE,Seed.QUADRI));
-        carte4.add(new Card(Value.OTTO,Seed.QUADRI));
+        carte4.add(new Card(Value.DIECI,Seed.QUADRI));
+        carte4.add(new Card(Value.DIECI,Seed.CUORI));
         g3.setMazzoGiocatore(carte4);
         g3.scale();
 
