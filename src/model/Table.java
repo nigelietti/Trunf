@@ -14,13 +14,23 @@ import java.util.Scanner;
 public class Table {
     private Seed trunf;
     private Card ultimaCarta;
-    private CartaGiocata cartaGiocata1, cartaGiocata2;
+    private Card cartaGiocata1, cartaGiocata2;
     private Giocatore g1, g2;
+
+    private Giocatore giocatoreCorrente;
     private ArrayList<Card> mazzo;
 
     private ArrayList<Card> pozzetto;
 
 
+
+    public Giocatore getGiocatoreCorrente(){
+        return giocatoreCorrente;
+    }
+
+    public void setGiocatoreCorrente(Giocatore giocatoreCorrente) {
+        this.giocatoreCorrente = giocatoreCorrente;
+    }
 
     public Seed getTrunf() {
         return trunf;
@@ -38,19 +48,19 @@ public class Table {
         this.ultimaCarta = ultimaCarta;
     }
 
-    public CartaGiocata getCartaGiocata1() {
+    public Card getCartaGiocata1() {
         return cartaGiocata1;
     }
 
-    public CartaGiocata getCartaGiocata2() {
+    public Card getCartaGiocata2() {
         return cartaGiocata2;
     }
 
-    public void setCartaGiocata1(CartaGiocata cartaGiocata1) {
+    public void setCartaGiocata1(Card cartaGiocata1){
         this.cartaGiocata1 = cartaGiocata1;
     }
 
-    public void setCartaGiocata2(CartaGiocata cartaGiocata2) {
+    public void setCartaGiocata2(Card cartaGiocata2) {
         this.cartaGiocata2 = cartaGiocata2;
     }
 
@@ -69,6 +79,7 @@ public class Table {
     public Table(String nome1, String nome2){
         g1 = new Giocatore(nome1);
         g2 = new Giocatore(nome2);
+
         pozzetto = new ArrayList<Card>();
 
         mazzo = new ArrayList<Card>();
@@ -181,6 +192,35 @@ public class Table {
         }
     }
 
+    public void vincitoreMano(){
+        if(cartaGiocata1.getSeed() != trunf && cartaGiocata2.getSeed() != trunf){
+            if(cartaGiocata1.getSeed() == cartaGiocata2.getSeed()){
+                if(cartaGiocata1.getValue().compareTo(cartaGiocata2.getValue()) > 0){
+                    giocatoreCorrente.cartaPresa(cartaGiocata1);
+                    cartaGiocata1 = null;
+                    giocatoreCorrente.cartaPresa(cartaGiocata2);
+                    cartaGiocata2 = null;
+                }
+                else{
+                    if(giocatoreCorrente == g1) {
+                        g2.cartaPresa(cartaGiocata1);
+                        cartaGiocata1 = null;
+                        g2.cartaPresa(cartaGiocata2);
+                        cartaGiocata2 = null;
+                        giocatoreCorrente = g2;
+                    }
+                    else{
+                        g1.cartaPresa(cartaGiocata1);
+                        cartaGiocata1 = null;
+                        g1.cartaPresa(cartaGiocata2);
+                        cartaGiocata2 = null;
+                        giocatoreCorrente = g1;
+                    }
+                }
+            }
+
+        }
+    }
 
 
 

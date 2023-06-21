@@ -8,6 +8,11 @@ public class Giocatore {
     private ArrayList<Card> cartePrese;
 
     private int punteggio;
+
+    public void cartaPresa(Card carta) {
+        cartePrese.add(carta);
+    }
+
     public void resetpunteggio(){
         punteggio=0;
     }
