@@ -135,11 +135,30 @@ public class Table {
             if(g1.pokermax() == null)
                 g2.puntiPoker();
             else
-                g1.pokermax();
+                g1.puntiPoker();
         }
 
         if(g1.scalamax(trunf) != null && g2.scalamax(trunf) != null){
-
+            if(g1.scalamax(trunf).getNum() > g2.scalamax(trunf).getNum()){
+                g1.puntiScale();
+            }
+            else if(g1.scalamax(trunf).getNum() < g2.scalamax(trunf).getNum()){
+                g2.puntiScale();
+            }
+            else{
+                if(g1.scalamax(trunf).getValue().compareTo(g2.scalamax(trunf).getValue()) > 0){
+                    g1.puntiScale();
+                }
+                else if(g1.scalamax(trunf).getValue().compareTo(g2.scalamax(trunf).getValue()) < 0){
+                    g2.puntiScale();
+                }
+                else{
+                    if(g1.scalamax(trunf).getSeed().equals(trunf))
+                        g1.puntiScale();
+                    if(g2.scalamax(trunf).getSeed().equals(trunf))
+                        g2.puntiScale();
+                }
+            }
         }
         else{
             if(g1.scalamax(trunf) == null)
