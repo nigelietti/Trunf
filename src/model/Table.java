@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Table {
@@ -265,6 +266,45 @@ public class Table {
             cartaGiocata2 = null;
             giocatoreCorrente = g1;
         }
+    }
+
+    public Giocatore vincitorePartita(){
+        Giocatore vincitore = null;
+        if(g1.getPunteggio() >= 1000 && g2.getPunteggio() < 1000){
+           vincitore = g1;
+        }
+
+        if(g2.getPunteggio() >= 1000 && g1.getPunteggio() < 1000){
+            vincitore = g2;
+        }
+
+        if(g1.getPunteggio() >= 1000 && g2.getPunteggio() >= 1000){
+            if(g1.getPunteggio() > g2.getPunteggio()){
+                vincitore = g1;
+            }
+            else if(g2.getPunteggio() > g1.getPunteggio()){
+                vincitore = g2;
+            }
+        }
+
+        return vincitore;
+    }
+
+    public void scambiaMazzo(Giocatore giocatore){
+        ArrayList<Card> temp = giocatore.getMazzoGiocatore();
+        giocatore.setMazzoGiocatore(pozzetto);
+        pozzetto = temp;
+    }
+
+    public void primoGiocatore(){
+        Random random = new Random();
+
+        int num = random.nextInt(2);
+
+        if(num == 0)
+            giocatoreCorrente = g1;
+        else
+            giocatoreCorrente = g2;
     }
 
 
